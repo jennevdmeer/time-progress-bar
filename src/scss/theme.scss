@@ -1,0 +1,92 @@
+@import 'variables';
+
+.time-progress {
+    background-color: $color-progress-available;
+
+    // Before and after for the shaded edge look.
+    &::before,
+    &::after {
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 20%;
+        z-index: 1;
+    }
+
+    &::before {
+        background-color: rgba(white, .2);
+    }
+
+    &::after {
+        bottom: 0;
+        background-color: rgba(black, .1);
+    }
+
+    &-wrapper {
+    }
+
+    &-bar {
+        background-color: $color-progress-used;
+
+        &-tick {
+            width: 0;
+            height: 0;
+
+            transform: translate(-50%, -100%);
+
+            border-left: .25em solid transparent;
+            border-right: .25em solid transparent;
+            border-top: .5em solid $color-progress-tick;
+        }
+
+        &-label {
+            left: 0;
+            white-space: nowrap;
+            transform: translateY(-1.5em);
+            font-size: .8em;
+
+            text-align: center;
+            line-height: .8em;
+
+            color: $color-progress-label;
+        }
+    }
+
+    &-seperator,
+    &-label {
+        transition: $transition-duration;
+
+        opacity: 0.5;
+    }
+
+    &-label {
+        opacity: 0;
+    }
+
+    &-seperator {
+        transform-origin: top center;
+        transform: translateX(-50%);
+        width: 2px;
+
+        background-color: $color-seperator-available;
+
+        &__active {
+            opacity: 1;
+            transform: translateX(-50%) scaleY(1.1);
+        }
+
+        &__used { background-color: $color-seperator-used; }
+    }
+
+    &-label {
+        text-align: center;
+        transform: translate(-50%, 130%);
+        bottom: 0;
+
+        color: $color-label-available;
+
+        &__active { opacity: 1; }
+
+        &__used { color: $color-label-used; }
+    }
+}

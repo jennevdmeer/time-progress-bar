@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Comfortaa:300,700" rel="stylesheet">
+
+        <style>
+            /*These styles (other than the inherited font) are only for this example's layout, they do nothing to the bar*/
+            body {
+                font-family: 'Comfortaa', cursive;
+                font-weight: 300;
+            }
+
+            section {
+                display: flex;
+                width: 100%;
+            }
+
+            figure {
+                margin: 0;
+                flex: 1 1 50%;
+
+                outline: thin solid #efefef;
+            }
+
+            figcaption {
+                padding: 1em;
+            }
+
+            /*These are to illustrate specific 'advanced' features*/
+            .custom-font {
+                font-family: 'Amatic SC', monospace;
+            }
+
+            .time-progress small {
+                font-size: .5em;
+                display: inline-block;
+                padding: 1em;
+                vertical-align: middle;
+            }
+        </style>
+
+        <% for (var css in htmlWebpackPlugin.files.css) { %><link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+        <% } %>
+    </head>
+
+    <body>
+        <section>
+            <figure>
+                <figcaption>Simple 15 second timer, with an onFinish event</figcaption>
+                <div id="progress1"></div>
+            </figure>
+        </section>
+
+        <section>
+            <figure>
+                <figcaption>Segments are based on highest duration type. In the bar below we are overriding the defaults for translations and adding days.</figcaption>
+                <div id="progress2"></div>
+            </figure>
+        </section>
+
+        <section>
+            <figure>
+                <div id="progress3"></div>
+                <figcaption>By default, hours, minutes and seconds are supported. Here we also set a custom threshold with a higher value. This results in more 'overlap' calculations resulting in more hidden labels.</figcaption>
+            </figure>
+            <figure>
+                <div id="progress4" class="custom-font"></div>
+                <figcaption>Fonts are inherited (Using custom one here using a simple css class), or can be defined in a custom theme. Also a custom label format is specified <code>[__count__]</code> adding the brackets</figcaption>
+            </figure>
+        </section>
+
+        <% for (var chunk in htmlWebpackPlugin.files.chunks) { %><% if (htmlWebpackPlugin.files.chunks[chunk].entry) { %><script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+        <% } %><% } %>
+        <script>
+            var el = document.getElementById('progress');
+
+            TimeProgressBar.interval = 25;
+
+            var progress1 = new TimeProgressBar(document.getElementById('progress1'), {
+                time: {
+                    current: 0, // This is required
+                    total: 15   // 30 seconds.
+                },
+                // Support for onUpdate and onFinish events.
+                onFinish() {
+                    this.$container.classList.add('custom-font');
+
+                    this.$container.innerHTML = 'Your time is up!';
+                }
+            });
+
+            var progress2 = new TimeProgressBar(document.getElementById('progress2'), {
+                // Change the progress label format.
+                progressLabelContent: '__progress__<small>/</small>__total__',
+
+                time: {
+                    current: 60 * 60 * 24 * 1.3241, // Start at 3.13 hours.
+                    total: 60 * 60 * 24 * 7,        // 60 seconds times 60 = minutes times
+                                                    // 24 hours = day * 7 = week of duration
+                                                    // (displayed as days, see duration below).
+                },
+
+                // Translate durations, can also add/remove higher ones eg. weeks for 3600 * 7. Atleast one is required.
+                duration: {
+                    1: ['seconde', 'seconden'],
+                    60: ['minuut', 'minuten'],
+                    3600: ['uur', 'uren'],
+                    86400: ['dag', 'dagen']
+                }
+            });
+
+            var progress3 = new TimeProgressBar(document.getElementById('progress3'), {
+                progressLabelContent: '__duration__ remaining',
+
+                threshold: 100, // The amount of width used for each label if the resulting
+                                // value exeeds the width, more and more labels are hidden.
+
+                time: { current: 70, total: 300 }
+            });
+
+            var progress4 = new TimeProgressBar(document.getElementById('progress4'), {
+                progressLabelContent: '__percentage__%',
+
+                // __count__ is replaced with the index
+                labelContent: '[__count__]',
+
+                time: { current: 0, total: 45 }
+            });
+        </script>
+    </body>
+
+</html>

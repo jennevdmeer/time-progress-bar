@@ -1,0 +1,11 @@
+/*!
+ * 
+ * time-progress-bar v1.0.0 (GPL-3.0)
+ * A progress bar specifically designed to display passed time in hours.
+ * 
+ * https://github.com/lensmedia/time-progress-bar#readme
+ * Jenne van der Meer <j.vandermeer@lensmedia.nl>
+ * 
+ */
+.time-progress{background-color:#96b48d}.time-progress::before,.time-progress::after{position:absolute;content:'';width:100%;height:20%;z-index:1}.time-progress::before{background-color:rgba(255,255,255,0.2)}.time-progress::after{bottom:0;background-color:rgba(0,0,0,0.1)}.time-progress-bar{background-color:#dc9135}.time-progress-bar-tick{width:0;height:0;transform:translate(-50%, -100%);border-left:.25em solid transparent;border-right:.25em solid transparent;border-top:0.5em solid rgba(0,0,0,0.6)}.time-progress-bar-label{left:0;white-space:nowrap;transform:translateY(-1.5em);font-size:.8em;text-align:center;line-height:.8em;color:rgba(0,0,0,0.6)}.time-progress-seperator,.time-progress-label{transition:.4s;opacity:0.5}.time-progress-label{opacity:0}.time-progress-seperator{transform-origin:top center;transform:translateX(-50%);width:2px;background-color:#628457}.time-progress-seperator__active{opacity:1;transform:translateX(-50%) scaleY(1.1)}.time-progress-seperator__used{background-color:#925c19}.time-progress-label{text-align:center;transform:translate(-50%, 130%);bottom:0;color:#628457}.time-progress-label__active{opacity:1}.time-progress-label__used{color:#925c19}
+

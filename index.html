@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>time progress bar</title>
+
+        <link rel="stylesheet" href="dist/progress.css" />
+    </head>
+
+    <body>
+        <div id="progress"></div>
+
+        <script src="dist/progress.js"></script>
+
+        <script>
+        let el = document.getElementById('progress');
+        const progress = new Progress(el, {
+            time: {
+                current: 1000 * 60 * 60 * 13,
+                total: 1000 * 60 * 60 * 23
+            }
+        });
+
+        </script>
+    </body>
+
+</html>

@@ -1,0 +1,25 @@
+/////////////////////
+// core generation //
+/////////////////////
+$progress-height: 2rem;
+$progress-wrapper-padding: 2rem 1rem;
+
+//////////////////////////////
+// default theme generation //
+//////////////////////////////
+$transition-duration: .4s;
+
+$color-available: rgb(122, 160, 110);
+$color-used: rgb(189, 119, 33);
+
+$color-progress-tick: rgba(black, .6);
+$color-progress-label: rgba(black, .6);
+
+$color-progress-available: adjust-color($color-available, $lightness: 10%);
+$color-progress-used: adjust-color($color-used, $lightness: 10%);
+
+$color-seperator-available: adjust-color($color-available, $lightness: -10%);
+$color-seperator-used: adjust-color($color-used, $lightness: -10%);
+
+$color-label-available: $color-seperator-available;
+$color-label-used: $color-seperator-used;
